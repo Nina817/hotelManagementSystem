@@ -26,7 +26,7 @@ class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
 
 
 class RoomListView(LoginRequiredMixin, generic.ListView):
-    template_name = 'HMS/room_list.html'
+    template_name = 'HMS/index.html'
     #model = Room
     queryset = Room.objects.all()
     context_object_name = 'room_list'
