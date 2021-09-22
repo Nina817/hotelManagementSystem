@@ -1,0 +1,24 @@
+{% extends "HMS/base.html" %}
+
+{% block content %}
+<h1>All bookings for Room {{ room.id }}</h1>
+
+<ul>
+    {% if bookings_list %}
+            {% for booking in bookings_list %}
+
+                {% if booking.user == user %}
+                    <li><a href = "{{ booking.get_absolute_url }}">Booking {{ booking.id }}</a> {{booking}}
+                    <a href="{% url 'HMS:booking_delete' booking.id %}">Delete this booking?</a>
+                    <a href="{% url 'HMS:booking_update' booking.id %}">Update this booking?</a>
+                    </li>
+                {% else %}
+                    <li><a href = "{{ booking.get_absolute_url }}">Booking {{ booking.id }}</a> {{booking}}</li>
+                {% endif %}
+            {% endfor %}
+    {% else %}
+        <li>This room doesn't have any bookings yet, click <a href="{% url 'HMS:booking_create' %}">here</a> to make a booking</li>
+    {% endif %}
+</ul>
+
+{% endblock %}

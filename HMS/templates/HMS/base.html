@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <title>Hotel Management System (rooms>>)</title>
+</head>
+<body>
+<nav>
+    <h1>Room Booking App</h1>
+    {%  if user.is_authenticated %}
+    <h2>Nav Bar</h2>
+    <ul>
+        <li><a href="{% url 'HMS:room_list' %}">Home/Room List</a></li>
+        <li><a href="{% url 'HMS:booking_create' %}">Make a booking</a></li>
+        <li><a href="{% url 'HMS:room_create' %}">Add a new room</a></li>
+        <li><a href="{% url 'HMS:booking_list' %}">See bookings by all users</a></li>
+        <li><a href="{% url 'HMS:all_user_bookings' %}">See all your bookings</a></li>
+    </ul>
+
+        You are logged in as {{ user.username }}.
+        <p><a href="{% url 'HMS:logout' %}">Logout</a></p>
+    {% endif %}
+</nav>
+    {% block content %}
+
+
+    {% endblock %}
+
+</body>
+</html>

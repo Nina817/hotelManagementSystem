@@ -1,0 +1,15 @@
+{% extends "HMS/base.html" %}
+
+{% block content %}
+<h1>All User Bookings List</h1>
+<ul>
+    {% for booking in user_bookings_list %}
+    <li>
+        <a href = "{{ booking.get_absolute_url }}">Booking {{ booking.id }}</a> {{booking}}.
+        <a href="{% url 'HMS:booking_delete' booking.id %}">Delete this booking?</a>
+        <a href="{% url 'HMS:booking_update' booking.id %}">Update this booking?</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

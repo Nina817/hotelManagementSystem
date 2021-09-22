@@ -1,0 +1,64 @@
+{% extends "HMS/base.html" %}
+
+{% block content %}
+<h1>Booking List</h1>
+
+    <h2>Filter bookings by date</h2>
+    <form method="POST" action="{% url 'HMS:booking_list' %}">  <!--do i need action in this form -->
+        {% csrf_token %}
+        <label for="search-checkin">Check-in time</label><input type="datetime-local" placeholder="search checkin" name="search-checkin"/><br/>
+        <label for="search-checkout">Check-out time</label><input type="datetime-local" placeholder="search checkout" name="search-checkout"/><br/>
+        <button type="submit">Search</button>
+    </form>
+
+{% if search_checkin == None and search_checkout == None %}
+
+     <ul>
+        {% for booking in booking_list %}
+            {% if booking.user == user %}
+                <li><a href = "{{ booking.get_absolute_url }}">Booking {{ booking.id }}</a> {{booking}}
+                <a href="{% url 'HMS:booking_delete' booking.id %}">Delete this booking?</a>
+                <a href="{% url 'HMS:booking_update' booking.id %}">Update this booking?</a>
+
+                </li>
+            {% else %}
+                <li><a href = "{{ booking.get_absolute_url }}">Booking {{ booking.id }}</a> {{booking}}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+{% elif not search_checkin or not search_checkout %}
+
+    <p>You need to enter a check-in and check-out time</p>
+
+{% elif search_checkin >= search_checkout %}
+
+    <p>You need to enter a check-in time that is before your check-out time</p>
+
+{% elif search_checkin and search_checkout %}
+
+<p>You searched between {{ search_checkin }} and {{ search_checkout }} </p>
+
+    {% for booking in booking_list %}
+{#        {% if search_checkin <= booking.checkin <= search_checkout or search_checkin <= booking.checkout <= search_checkout %}#}
+{#        {% if search_checkout >= booking.check_in and booking.check_in >= search_checkin %}#}
+{#            {% if search_checkout >= booking.check_out and booking.check_out >= search_checkin %}#}
+                <ul>
+                    {% if booking.user == user %}
+                        <li><a href = "{{ booking.get_absolute_url }}">Booking {{ booking.id }}</a> {{booking}}
+                        <a href="{% url 'HMS:booking_delete' booking.id %}">Delete this booking?</a>
+                        <a href="{% url 'HMS:booking_update' booking.id %}">Update this booking?</a>
+
+                        </li>
+                    {% else %}
+                        <li><a href = "{{ booking.get_absolute_url }}">Booking {{ booking.id }}</a> {{booking}}</li>
+                    {% endif %}
+                </ul>
+{#            {% endif %}#}
+{#        {% endif %}#}
+{#        {% endif %}#}
+    {% endfor %}
+
+{% endif %}
+
+{% endblock %}

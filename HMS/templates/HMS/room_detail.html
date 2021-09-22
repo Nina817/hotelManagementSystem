@@ -1,0 +1,8 @@
+{% extends "HMS/base.html" %}
+
+{% block content %}
+<h1>Room {{room.number}}</h1>
+<p>{{room}}</p>
+    <p>See your bookings for this room: <a href="{% url 'HMS:room_user_bookings' room.number %}">here</a></p>
+    <p>See bookings by all users for this room <a href="{% url 'HMS:all_room_bookings' room.number %}">here</a></p>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "HMS/base.html" %}
+
+{% block content %}
+<h1>Booking {{booking.id}} Details</h1>
+<p>{{booking}}</p>
+    {% if booking.user == user %}
+        <a href="{% url 'HMS:booking_delete' booking.id %}">Delete this booking?</a>
+        <a href="{% url 'HMS:booking_update' booking.id %}">Update this booking?</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "HMS/base.html" %}
+
+{% block content %}
+    <h1>Delete Booking {{ booking.id }}?</h1>
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete Booking {{ booking.id }} - {{ booking }}?</p>
+    <input type="submit" value="Confirm">
+</form>
+{% endblock %}
